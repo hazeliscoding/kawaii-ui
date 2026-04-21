@@ -38,6 +38,15 @@ context: |
   Verification gates before merging or releasing:
     `npm run lint && npm run typecheck && npm test && npm run build`.
 
+  Accessibility baseline:
+    WCAG 2.2 Level AA is non-negotiable. Every component follows a documented
+    WAI-ARIA Authoring Practices (APG) pattern, is fully operable with a
+    keyboard alone, and respects `prefers-reduced-motion` — critical, because
+    the Y2K aesthetic leans on sparkles, bounces, and glow animations that
+    must degrade gracefully. Touch targets meet WCAG 2.2 SC 2.5.8 (minimum
+    24×24 CSS px). Color is never the sole carrier of meaning. Axe-core
+    assertions run in CI via `vitest-axe`; a11y regressions block merge.
+
 # Per-artifact rules — keep the spec-driven workflow aligned with the repo's conventions.
 rules:
   proposal:
@@ -45,6 +54,8 @@ rules:
     - Always include a "Non-goals" section to bound scope.
     - Call out framework-agnostic implications — anything that would require a consumer to reach into shadow DOM is a red flag and must be justified.
     - Note any breaking changes to tag names, attribute names, event names, CSS parts, or `--bloom-*` custom properties. These are the public API.
+    - Include an "Accessibility impact" section listing the WCAG 2.2 success criteria touched (e.g. `1.4.3 Contrast (Minimum)`, `2.1.1 Keyboard`, `2.4.11 Focus Not Obscured`, `2.5.8 Target Size`, `4.1.2 Name, Role, Value`).
+    - Declare the assistive-tech scope the component is validated against. Minimum matrix: NVDA + Firefox, VoiceOver + Safari. Add JAWS + Chrome for anything form-associated or overlay-based.
 
   design:
     - Specify the tag name, class name, reflected attributes, slots, CSS parts, and `--bloom-*` custom properties up front — these are the component's public surface.
@@ -52,19 +63,34 @@ rules:
     - Flag form-association needs (`formAssociated`, `attachInternals`) explicitly.
     - Describe dark-mode behavior in terms of token consumption, not hard-coded overrides.
     - Identify the three registration touchpoints to update (`src/index.ts`, `vite.config.ts`, `package.json` exports).
+    - Cite the specific WAI-ARIA APG pattern being followed by URL (e.g. https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/). If no APG pattern fits, justify the deviation.
+    - Include a keyboard map table covering every relevant key (Tab, Shift+Tab, Enter, Space, Esc, Arrow keys, Home/End) and the resulting behavior. Pointer-only interactions are a bug.
+    - Describe focus management in full: where initial focus lands, whether focus is trapped (for overlays), where focus returns on close/dismiss, and how `:focus-visible` is styled against `--bloom-*` tokens.
+    - Specify the `prefers-reduced-motion` branch for every animation, transition, or sparkle/glow effect. The reduced-motion rendering must still communicate state change.
+    - Include a contrast table listing every foreground/background token pair used by the component with measured ratios in both light and dark themes. Minimum 4.5:1 for body text, 3:1 for large text and non-text UI.
 
   specs:
     - Use SHALL / SHOULD / MAY (RFC 2119). Each requirement testable in Vitest + jsdom or documented as a demo-only check if jsdom can't cover it.
     - Cover: default rendering, each prop/attribute variant, each emitted event, keyboard/focus behavior where relevant, dark mode via `data-theme="dark"`, and form integration when applicable.
     - Accessibility requirements (roles, `aria-*`, focus management) are first-class, not an afterthought.
+    - Every public property/attribute that affects assistive tech MUST declare its ARIA mapping explicitly — or state `aria: none` with a one-line justification.
+    - Every emitted event MUST specify whether it fires on keyboard activation (Enter/Space) in addition to pointer input. Pointer-only events are a spec violation.
+    - Touch/pointer targets SHALL meet WCAG 2.2 SC 2.5.8: minimum 24×24 CSS px; 44×44 recommended for primary actions.
+    - Color SHALL NOT be the sole carrier of meaning — state changes must also use text, iconography, shape, or position (WCAG 1.4.1).
+    - Components with animation SHALL honor `prefers-reduced-motion: reduce` and the reduced-motion path MUST be covered by a spec requirement.
 
   tasks:
     - Break tasks into ≤ 2-hour chunks, ordered so each leaves the repo in a working state (lint + typecheck + test + build green).
     - Standard task skeleton for a new component:
         1. Scaffold `src/components/<name>/{bloom-<name>.ts, bloom-<name>.css, index.ts}`
         2. Wire registration in `src/index.ts`, `vite.config.ts` lib.entry, and `package.json` exports
-        3. Add `bloom-<name>.test.ts` covering the spec requirements
-        4. Add a demo section in `demo/` importing from the source file directly (tree-shaking workaround, see commit 6f79d68)
-        5. Update `README.md` component table
-        6. Run `npm run lint && npm run typecheck && npm test && npm run build`
+        3. Add `bloom-<name>.test.ts` covering the spec requirements, including:
+            - a `vitest-axe` assertion against the rendered component in both light and dark themes
+            - a keyboard-only walkthrough (no pointer events — dispatch `KeyboardEvent`s only)
+            - a `prefers-reduced-motion: reduce` branch using `matchMedia` mocking
+            - a contrast/token check that fails if any color is hard-coded outside `tokens.css`
+        4. Add a demo section in `demo/` importing from the source file directly (tree-shaking workaround, see commit 6f79d68) — include a dark-mode toggle and a reduced-motion-on scenario.
+        5. Update `README.md` component table.
+        6. Record a manual screen-reader smoke test in the PR description against at least one AT from the declared matrix (NVDA / VoiceOver / JAWS).
+        7. Run `npm run lint && npm run typecheck && npm test && npm run build`
     - Final task of every change: use `/commit` for the conventional commit and `/pr` to open the PR. Do not inline those steps — delegate to the skills.
