@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,6 +8,22 @@
       name="description"
       content="Gel buttons, pastel gradients, glossy surfaces. A framework-agnostic kawaii web component library."
     />
+    <script>
+      // Apply saved theme before first paint to avoid a light/dark flash on load.
+      (function () {
+        try {
+          var saved = localStorage.getItem('bloom-theme');
+          var prefersDark =
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute(
+            'data-theme',
+            saved === 'dark' || saved === 'light' ? saved : prefersDark ? 'dark' : 'light',
+          );
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -47,15 +63,7 @@
           <a href="https://github.com/hazeliscoding/kawaii-ui">GitHub</a>
         </nav>
         <div class="topbar__actions">
-          <button
-            class="topbar__icon-btn"
-            type="button"
-            id="themeToggle"
-            aria-label="Toggle dark mode"
-            title="Toggle dark mode"
-          >
-            🌙
-          </button>
+          <bloom-theme-toggle class="topbar__theme-toggle"></bloom-theme-toggle>
         </div>
       </header>
 
@@ -74,7 +82,7 @@
             <span slot="icon-left">📦</span>
             npm install
           </bloom-button>
-          <bloom-button variant="ghost" size="lg">
+          <bloom-button variant="ghost" size="lg" id="starCta">
             <span slot="icon-left">⭐</span>
             Star on GitHub
           </bloom-button>
@@ -420,11 +428,11 @@
                 <form id="demoForm" class="form-demo">
                   <div class="form-field">
                     <label for="nameField" class="form-field__label">Display name</label>
-                    <input id="nameField" name="name" required placeholder="SakuraChan" />
+                    <input id="nameField" name="name" required placeholder="MochiBun" />
                   </div>
                   <div class="form-field">
-                    <label for="animeField" class="form-field__label">Favorite anime</label>
-                    <input id="animeField" name="anime" placeholder="Spy x Family" />
+                    <label for="showField" class="form-field__label">Favorite show</label>
+                    <input id="showField" name="show" placeholder="Cozy Friday Movie" />
                   </div>
                   <div class="panel__preview" style="padding: 0; min-height: 0; background: none; justify-content: flex-start;">
                     <bloom-button type="submit" variant="primary">
@@ -478,13 +486,13 @@
                 With status dot
               </div>
               <div class="panel__preview">
-                <bloom-badge color="green" dot>Watching</bloom-badge>
-                <bloom-badge color="pink" dot>Completed</bloom-badge>
-                <bloom-badge color="blue" dot>Plan to Watch</bloom-badge>
-                <bloom-badge color="yellow" dot>On Hold</bloom-badge>
-                <bloom-badge color="neutral" dot>Dropped</bloom-badge>
+                <bloom-badge color="green" dot>Live</bloom-badge>
+                <bloom-badge color="pink" dot>Trending</bloom-badge>
+                <bloom-badge color="blue" dot>New</bloom-badge>
+                <bloom-badge color="yellow" dot>Beta</bloom-badge>
+                <bloom-badge color="neutral" dot>Archived</bloom-badge>
               </div>
-<pre class="panel__code"><span class="tag">&lt;bloom-badge</span> <span class="attr">color</span>=<span class="str">"green"</span> <span class="attr">dot</span><span class="tag">&gt;</span>Watching<span class="tag">&lt;/bloom-badge&gt;</span></pre>
+<pre class="panel__code"><span class="tag">&lt;bloom-badge</span> <span class="attr">color</span>=<span class="str">"green"</span> <span class="attr">dot</span><span class="tag">&gt;</span>Live<span class="tag">&lt;/bloom-badge&gt;</span></pre>
             </div>
 
             <div class="panel">
@@ -517,12 +525,12 @@
                 Sizes
               </div>
               <div class="panel__preview" style="align-items: flex-end;">
-                <bloom-avatar size="xs" name="Sakura"></bloom-avatar>
-                <bloom-avatar size="sm" name="Naruto Uzumaki"></bloom-avatar>
-                <bloom-avatar size="md" name="Mikasa Ackerman"></bloom-avatar>
-                <bloom-avatar size="lg" name="Gojo Satoru"></bloom-avatar>
+                <bloom-avatar size="xs" name="Hazel"></bloom-avatar>
+                <bloom-avatar size="sm" name="Peach Cloud"></bloom-avatar>
+                <bloom-avatar size="md" name="Mochi Bun"></bloom-avatar>
+                <bloom-avatar size="lg" name="Cosmo Bloom"></bloom-avatar>
               </div>
-<pre class="panel__code"><span class="tag">&lt;bloom-avatar</span> <span class="attr">size</span>=<span class="str">"lg"</span> <span class="attr">name</span>=<span class="str">"Gojo Satoru"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span></pre>
+<pre class="panel__code"><span class="tag">&lt;bloom-avatar</span> <span class="attr">size</span>=<span class="str">"lg"</span> <span class="attr">name</span>=<span class="str">"Cosmo Bloom"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span></pre>
             </div>
 
             <div class="panel">
@@ -533,7 +541,7 @@
               <div class="panel__preview">
                 <bloom-avatar size="md" name="Online User" status="online"></bloom-avatar>
                 <bloom-avatar size="md" name="Offline User" status="offline"></bloom-avatar>
-                <bloom-avatar size="md" name="Watching Now" status="watching"></bloom-avatar>
+                <bloom-avatar size="md" name="Streaming Now" status="watching"></bloom-avatar>
                 <bloom-avatar size="md" name="No Status"></bloom-avatar>
               </div>
 <pre class="panel__code"><span class="tag">&lt;bloom-avatar</span> <span class="attr">status</span>=<span class="str">"online"</span> <span class="attr">name</span>=<span class="str">"Hazel"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span>
@@ -559,15 +567,15 @@
               </div>
               <div class="panel__preview">
                 <bloom-avatar-stack aria-label="Watch party members">
-                  <bloom-avatar size="sm" name="Sakura Chan" status="online"></bloom-avatar>
-                  <bloom-avatar size="sm" name="Naruto Uzumaki" status="online"></bloom-avatar>
-                  <bloom-avatar size="sm" name="Hinata Hyuga" status="watching"></bloom-avatar>
-                  <bloom-avatar size="sm" name="Sasuke Uchiha" status="offline"></bloom-avatar>
+                  <bloom-avatar size="sm" name="Bubble Star" status="online"></bloom-avatar>
+                  <bloom-avatar size="sm" name="Peach Cloud" status="online"></bloom-avatar>
+                  <bloom-avatar size="sm" name="Mochi Bun" status="watching"></bloom-avatar>
+                  <bloom-avatar size="sm" name="Clover Field" status="offline"></bloom-avatar>
                 </bloom-avatar-stack>
               </div>
 <pre class="panel__code"><span class="tag">&lt;bloom-avatar-stack</span> <span class="attr">aria-label</span>=<span class="str">"Watch party"</span><span class="tag">&gt;</span>
-  <span class="tag">&lt;bloom-avatar</span> <span class="attr">size</span>=<span class="str">"sm"</span> <span class="attr">name</span>=<span class="str">"Sakura"</span> <span class="attr">status</span>=<span class="str">"online"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span>
-  <span class="tag">&lt;bloom-avatar</span> <span class="attr">size</span>=<span class="str">"sm"</span> <span class="attr">name</span>=<span class="str">"Naruto"</span> <span class="attr">status</span>=<span class="str">"watching"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span>
+  <span class="tag">&lt;bloom-avatar</span> <span class="attr">size</span>=<span class="str">"sm"</span> <span class="attr">name</span>=<span class="str">"Bubble"</span> <span class="attr">status</span>=<span class="str">"online"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span>
+  <span class="tag">&lt;bloom-avatar</span> <span class="attr">size</span>=<span class="str">"sm"</span> <span class="attr">name</span>=<span class="str">"Peach"</span> <span class="attr">status</span>=<span class="str">"watching"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span>
 <span class="tag">&lt;/bloom-avatar-stack&gt;</span></pre>
             </div>
           </section>
@@ -621,12 +629,12 @@
                 </bloom-card>
 
                 <bloom-card>
-                  <h3 slot="header" style="margin: 0;">Anime Night</h3>
+                  <h3 slot="header" style="margin: 0;">Cozy Movie Night</h3>
                   <p style="margin: 0;">
-                    Watch "Spy x Family" with your crew. Rated 9/10 so far!
+                    Picking tonight's feature with your crew. Rated 9/10 so far!
                   </p>
                   <div slot="footer">
-                    <bloom-badge color="green" dot>Watching</bloom-badge>
+                    <bloom-badge color="green" dot>Live</bloom-badge>
                   </div>
                 </bloom-card>
               </div>
@@ -669,7 +677,7 @@
               >
                 <bloom-input
                   label="Display name"
-                  placeholder="SakuraChan"
+                  placeholder="MochiBun"
                   hint="This is how others will see you"
                 ></bloom-input>
                 <bloom-input
@@ -679,7 +687,7 @@
                   required
                 ></bloom-input>
                 <bloom-input
-                  label="Favorite anime"
+                  label="Favorite show"
                   placeholder="Type here…"
                   error="This field is required!"
                 ></bloom-input>
@@ -706,7 +714,7 @@
                   gap: var(--bloom-space-4);
                 "
               >
-                <bloom-input label="Search" placeholder="Search anime…" size="sm">
+                <bloom-input label="Search" placeholder="Search shows…" size="sm">
                   <span slot="prefix">🔍</span>
                 </bloom-input>
                 <bloom-input label="Username" placeholder="hazel">
@@ -778,13 +786,13 @@
             <bloom-modal id="demoModal">
               <h3 slot="header" style="margin: 0;">Start a watch party</h3>
               <p style="margin: 0 0 var(--bloom-space-3);">
-                Pick a friend, pick a show, let fate pick the rest. The modal
+                Pick a friend, pick a night, let fate pick the rest. The modal
                 traps focus inside itself — try Tab and Shift+Tab. Press
                 <kbd>Escape</kbd> to close.
               </p>
               <bloom-input
                 label="Friend's handle"
-                placeholder="@sakura"
+                placeholder="@peach"
                 hint="They'll get an invite in their inbox."
               ></bloom-input>
               <div slot="footer" style="display: flex; gap: var(--bloom-space-2); justify-content: flex-end;">
@@ -870,7 +878,7 @@
             <div class="panel">
               <div class="panel__label">
                 <span class="panel__dot"></span>
-                Watch space, search, profile
+                Space, search, profile
               </div>
               <div
                 class="panel__preview"
@@ -890,14 +898,14 @@
                       <bloom-avatar size="xs" name="Hazel" status="online"></bloom-avatar>
                       <bloom-avatar size="xs" name="Luna" status="watching"></bloom-avatar>
                     </bloom-avatar-stack>
-                    <strong>Our Anime Night</strong>
+                    <strong>Our Watch Party</strong>
                   </div>
                   <p style="margin: 0 0 var(--bloom-space-2);">
-                    3 anime in backlog · 12 completed
+                    3 in the queue · 12 finished
                   </p>
                   <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <bloom-badge color="pink" size="sm">Romance</bloom-badge>
-                    <bloom-badge color="lilac" size="sm">Fantasy</bloom-badge>
+                    <bloom-badge color="pink" size="sm">Cozy</bloom-badge>
+                    <bloom-badge color="lilac" size="sm">Dreamy</bloom-badge>
                   </div>
                   <div slot="footer" style="display: flex; gap: 0.5rem;">
                     <bloom-button variant="primary" size="sm">Open</bloom-button>
@@ -906,8 +914,8 @@
                 </bloom-card>
 
                 <bloom-card>
-                  <h3 slot="header" style="margin: 0;">Find anime</h3>
-                  <bloom-input placeholder="Search AniList…" size="md">
+                  <h3 slot="header" style="margin: 0;">Find shows</h3>
+                  <bloom-input placeholder="Search your library…" size="md">
                     <span slot="prefix">🔍</span>
                   </bloom-input>
                   <div slot="footer">
@@ -926,7 +934,7 @@
                       <bloom-badge color="green" dot size="sm">Online</bloom-badge>
                     </div>
                   </div>
-                  <p style="margin: 0;">42 anime completed · 8.2 avg score</p>
+                  <p style="margin: 0;">42 shows finished · 8.2 avg rating</p>
                   <div slot="footer" style="display: flex; gap: 0.5rem;">
                     <bloom-button variant="secondary" size="sm">View</bloom-button>
                     <bloom-button variant="ghost" size="sm">Settings</bloom-button>

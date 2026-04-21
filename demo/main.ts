@@ -17,6 +17,28 @@ import '../src/components/theme-toggle/bloom-theme-toggle.ts';
 import '../src/components/modal/bloom-modal.ts';
 import '../src/components/compat-ring/bloom-compat-ring.ts';
 
+// ---------- Hero CTAs ----------
+const INSTALL_COMMAND = 'npm install @hazeliscoding/kawaii-ui';
+const REPO_URL = 'https://github.com/hazeliscoding/kawaii-ui';
+
+const installCta = document.getElementById('installCta');
+installCta?.addEventListener('bloom-click', async () => {
+  const originalHTML = installCta.innerHTML;
+  try {
+    await navigator.clipboard.writeText(INSTALL_COMMAND);
+    installCta.innerHTML = '<span slot="icon-left">✓</span> Copied!';
+  } catch {
+    installCta.innerHTML = '<span slot="icon-left">⚠️</span> Copy failed';
+  }
+  setTimeout(() => {
+    installCta.innerHTML = originalHTML;
+  }, 1500);
+});
+
+document.getElementById('starCta')?.addEventListener('bloom-click', () => {
+  window.open(REPO_URL, '_blank', 'noopener,noreferrer');
+});
+
 // ---------- Click counter (Events section) ----------
 const target = document.getElementById('clickTarget');
 const output = document.getElementById('clickOutput');
@@ -33,31 +55,12 @@ form?.addEventListener('submit', (e) => {
   e.preventDefault();
   const data = new FormData(form);
   if (formOutput) {
-    formOutput.textContent = `✓ Submitted: name="${data.get('name') ?? ''}" · anime="${data.get('anime') ?? ''}"`;
+    formOutput.textContent = `✓ Submitted: name="${data.get('name') ?? ''}" · show="${data.get('show') ?? ''}"`;
   }
 });
 form?.addEventListener('reset', () => {
   if (formOutput) formOutput.textContent = 'Form was reset';
 });
-
-// ---------- Dark mode toggle (topbar) ----------
-// The topbar icon stays in sync with `<bloom-theme-toggle>` anywhere on the
-// page — both update `document.documentElement[data-theme]` and dispatch
-// bloom-theme-change. We listen globally and mirror the state.
-const themeToggle = document.getElementById('themeToggle') as HTMLButtonElement | null;
-const applyThemeToggleLabel = () => {
-  if (!themeToggle) return;
-  const isDark = document.documentElement.dataset['theme'] === 'dark';
-  themeToggle.textContent = isDark ? '☀️' : '🌙';
-  themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-};
-applyThemeToggleLabel();
-themeToggle?.addEventListener('click', () => {
-  const html = document.documentElement;
-  html.dataset['theme'] = html.dataset['theme'] === 'dark' ? 'light' : 'dark';
-  applyThemeToggleLabel();
-});
-document.addEventListener('bloom-theme-change', () => applyThemeToggleLabel());
 
 // ---------- Modal demo ----------
 const openModalBtn = document.getElementById('openModalBtn');
