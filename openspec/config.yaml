@@ -1,0 +1,70 @@
+schema: spec-driven
+
+# Project context — shown to AI when creating proposals, specs, designs, and tasks.
+context: |
+  Project: @hazeliscoding/kawaii-ui
+  What: A framework-agnostic kawaii Y2K web component library built on Lit 3.
+  Consumers: vanilla HTML, Angular, React, Vue, HTMX — components are custom elements
+  with the `bloom-` prefix (tag `bloom-<thing>`, class `Bloom<Thing>`).
+
+  Tech stack:
+    - TypeScript (strict) + Lit 3 (LitElement, decorators, `css`/`unsafeCSS`)
+    - Vite in dual-mode: library build (dist/) and demo build (docs/ for GitHub Pages)
+    - Vitest + jsdom for unit tests
+    - ESLint + Prettier
+    - custom-elements-manifest (`cem analyze`) for `dist/custom-elements.json`
+
+  Conventions (hard rules):
+    - Tag `bloom-<thing>`; class `Bloom<Thing>`; files `src/components/<name>/bloom-<name>.{ts,css,test.ts}` + `index.ts`.
+    - CSS imported with `?inline` and injected via `css\`${unsafeCSS(styles)}\``.
+    - Reflected attributes use `@property({ reflect: true })`; boolean attrs use kebab-case via `attribute: 'full-width'`.
+    - Events named `bloom-*`, `bubbles: true, composed: true`, original DOM event on `detail.originalEvent`.
+    - Form-participating components set `static formAssociated = true` and use `attachInternals()`.
+    - Augment `HTMLElementTagNameMap` and `HTMLElementEventMap` via `declare global`.
+    - Styling hooks via CSS `part="..."` and `--bloom-*` custom properties — never pierce shadow DOM.
+    - Design tokens live in `src/styles/tokens.css`; dark mode via `data-theme="dark"`. Never hard-code colors in component CSS.
+    - Adding a new component means updating THREE places: `src/index.ts` barrel, `vite.config.ts` `lib.entry`, and `package.json` `exports`.
+
+  Workflow (use the project skills — do not reinvent):
+    - Conventional Commits only, authored solely by the human user. Use the `/commit` skill.
+      No `Co-Authored-By:` trailer. No "Generated with Claude Code" line. Ever.
+    - Branches follow `<type>/<kebab-scope>` (e.g. `feat/button-icon-only`). Use the `/pr` skill
+      to branch, push, and open PRs against `main`.
+    - Releases are cut via the `/release` skill: bump version, commit as `chore(release): vX.Y.Z`,
+      tag `vX.Y.Z`, push, then `gh release create` — GitHub `release: published` triggers
+      `.github/workflows/publish.yml` which runs `npm publish --provenance`. Never run
+      `npm publish` manually.
+
+  Verification gates before merging or releasing:
+    `npm run lint && npm run typecheck && npm test && npm run build`.
+
+# Per-artifact rules — keep the spec-driven workflow aligned with the repo's conventions.
+rules:
+  proposal:
+    - State the motivation in terms of real consumer pain (Angular/React/HTMX/vanilla users), not internal tidiness.
+    - Always include a "Non-goals" section to bound scope.
+    - Call out framework-agnostic implications — anything that would require a consumer to reach into shadow DOM is a red flag and must be justified.
+    - Note any breaking changes to tag names, attribute names, event names, CSS parts, or `--bloom-*` custom properties. These are the public API.
+
+  design:
+    - Specify the tag name, class name, reflected attributes, slots, CSS parts, and `--bloom-*` custom properties up front — these are the component's public surface.
+    - Specify emitted events by name, payload shape, and whether they bubble/compose.
+    - Flag form-association needs (`formAssociated`, `attachInternals`) explicitly.
+    - Describe dark-mode behavior in terms of token consumption, not hard-coded overrides.
+    - Identify the three registration touchpoints to update (`src/index.ts`, `vite.config.ts`, `package.json` exports).
+
+  specs:
+    - Use SHALL / SHOULD / MAY (RFC 2119). Each requirement testable in Vitest + jsdom or documented as a demo-only check if jsdom can't cover it.
+    - Cover: default rendering, each prop/attribute variant, each emitted event, keyboard/focus behavior where relevant, dark mode via `data-theme="dark"`, and form integration when applicable.
+    - Accessibility requirements (roles, `aria-*`, focus management) are first-class, not an afterthought.
+
+  tasks:
+    - Break tasks into ≤ 2-hour chunks, ordered so each leaves the repo in a working state (lint + typecheck + test + build green).
+    - Standard task skeleton for a new component:
+        1. Scaffold `src/components/<name>/{bloom-<name>.ts, bloom-<name>.css, index.ts}`
+        2. Wire registration in `src/index.ts`, `vite.config.ts` lib.entry, and `package.json` exports
+        3. Add `bloom-<name>.test.ts` covering the spec requirements
+        4. Add a demo section in `demo/` importing from the source file directly (tree-shaking workaround, see commit 6f79d68)
+        5. Update `README.md` component table
+        6. Run `npm run lint && npm run typecheck && npm test && npm run build`
+    - Final task of every change: use `/commit` for the conventional commit and `/pr` to open the PR. Do not inline those steps — delegate to the skills.
