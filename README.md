@@ -110,17 +110,21 @@ export function App() {
 
 ## Components
 
-| Tag                  | Status                       |
-| -------------------- | ---------------------------- |
-| `bloom-button`       | ✅ Phase 0                   |
-| `bloom-badge`        | ✅ Phase 2                   |
-| `bloom-avatar`       | ✅ Phase 2                   |
-| `bloom-avatar-stack` | ✅ Phase 2                   |
-| `bloom-card`         | ✅ Phase 2                   |
-| `bloom-input`        | ✅ Phase 2 (form-associated) |
-| `bloom-theme-toggle` | ✅ Phase 2                   |
-| `bloom-modal`        | ✅ Phase 3                   |
-| `bloom-compat-ring`  | ✅ Phase 3                   |
+Every component ships with shadow-DOM encapsulated styles, CSS `part` hooks for overrides, and TypeScript types for its props and events. Import `@hazeliscoding/kawaii-ui` once to register them all, or cherry-pick via subpath imports (e.g. `@hazeliscoding/kawaii-ui/button`).
+
+| Tag                  | Summary                                                                                                                     | Key props                                                              | Events                                 |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------- |
+| `bloom-button`       | Gel-style button with icon slots and a loading spinner. Form-associated — `type="submit"` / `"reset"` work inside a `<form>`. | `variant` (`primary` \| `secondary` \| `accent` \| `ghost` \| `danger`), `size`, `type`, `disabled`, `loading`, `full-width` | `bloom-click`                          |
+| `bloom-badge`        | Pill-shaped status badge with optional leading dot.                                                                         | `color` (`pink` \| `blue` \| `green` \| `lilac` \| `yellow` \| `neutral`), `size`, `dot` | —                                      |
+| `bloom-avatar`       | Circular avatar with decorative ring, initials fallback from `name`, and a presence status dot.                             | `src`, `alt`, `name`, `size` (`xs`–`lg`), `status` (`online` \| `offline` \| `watching` \| `none`) | —                                      |
+| `bloom-avatar-stack` | Overlapping avatar group. Wrap any number of `<bloom-avatar>` children.                                                     | (layout-only; see `bloom-avatar-stack.css` for spacing tokens)         | —                                      |
+| `bloom-card`         | Content card with `header` / `footer` slots. `variant="highlighted"` adds an animated sparkle border.                       | `variant` (`default` \| `highlighted`), `hoverable`                    | —                                      |
+| `bloom-input`        | Form-associated text input with label, hint, error, and `prefix` / `suffix` slots. Participates in native form submission. | `label`, `placeholder`, `type`, `size`, `name`, `value`, `error`, `hint`, `required`, `readonly`, `disabled`, `autocomplete` | `bloom-input`, `bloom-change`          |
+| `bloom-theme-toggle` | Round toggle that flips `data-theme` on `<html>`, persists to `localStorage`, and respects `prefers-color-scheme` on first mount. | `storage-key` (set to `""` to disable persistence), `target` (HTMLElement, property only) | `bloom-theme-change`                   |
+| `bloom-modal`        | Overlay dialog with focus trap, Escape-to-close, backdrop click, and body scroll lock. Consumer owns the `open` state.       | `open`, `close-on-backdrop-click`, `close-on-escape`                   | `bloom-open`, `bloom-close` (with `reason`) |
+| `bloom-compat-ring`  | Animated 0–100 compatibility / affinity score ring with a slot for the empty state.                                         | `score` (number \| null), `label`, `context`                           | —                                      |
+
+All events bubble and are `composed: true`, so you can listen on any ancestor. Payloads live on `event.detail` — check each component's TypeScript definitions for exact shapes.
 
 ## Theming
 
