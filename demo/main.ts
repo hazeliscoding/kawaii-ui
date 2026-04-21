@@ -1,3 +1,5 @@
+declare const __APP_VERSION__: string;
+
 import '../src/styles/tokens.css';
 import '../src/styles/base.css';
 import '../src/styles/animations.css';
@@ -16,6 +18,10 @@ import '../src/components/input/bloom-input.ts';
 import '../src/components/theme-toggle/bloom-theme-toggle.ts';
 import '../src/components/modal/bloom-modal.ts';
 import '../src/components/compat-ring/bloom-compat-ring.ts';
+
+// ---------- Hero version badge ----------
+const heroEyebrow = document.getElementById('heroEyebrow');
+if (heroEyebrow) heroEyebrow.textContent = `✨ v${__APP_VERSION__} · early preview`;
 
 // ---------- Hero CTAs ----------
 const INSTALL_COMMAND = 'npm install @hazeliscoding/kawaii-ui';

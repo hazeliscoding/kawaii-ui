@@ -4,6 +4,10 @@ import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const styleFiles = ['tokens.css', 'base.css', 'animations.css', 'utilities.css'] as const;
 
+const pkg = JSON.parse(
+  readFileSync(resolve(__dirname, 'package.json'), 'utf-8'),
+) as { version: string };
+
 export default defineConfig(({ mode }) => {
   const isDemo = mode === 'demo' || process.env.DEMO === '1';
 
@@ -12,6 +16,9 @@ export default defineConfig(({ mode }) => {
       root: 'demo',
       base: './',
       server: { port: 4321, open: true },
+      define: {
+        __APP_VERSION__: JSON.stringify(pkg.version),
+      },
       build: {
         outDir: '../docs',
         emptyOutDir: true,
