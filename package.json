@@ -79,6 +79,7 @@
   ],
   "sideEffects": [
     "**/*.css",
+    "./src/**/*.ts",
     "./dist/components/**/*.js",
     "./dist/index.js"
   ],

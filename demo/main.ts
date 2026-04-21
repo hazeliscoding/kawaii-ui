@@ -3,7 +3,19 @@ import '../src/styles/base.css';
 import '../src/styles/animations.css';
 import '../src/styles/utilities.css';
 import './demo.css';
-import '../src/index.ts';
+
+// Side-effect imports — each file registers its custom element via
+// @customElement(). Importing them directly (instead of through the
+// re-exporting barrel at src/index.ts) prevents Rollup from tree-shaking
+// the registrations out of the demo bundle.
+import '../src/components/button/bloom-button.ts';
+import '../src/components/badge/bloom-badge.ts';
+import '../src/components/avatar/bloom-avatar.ts';
+import '../src/components/card/bloom-card.ts';
+import '../src/components/input/bloom-input.ts';
+import '../src/components/theme-toggle/bloom-theme-toggle.ts';
+import '../src/components/modal/bloom-modal.ts';
+import '../src/components/compat-ring/bloom-compat-ring.ts';
 
 // ---------- Click counter (Events section) ----------
 const target = document.getElementById('clickTarget');
