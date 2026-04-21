@@ -1,0 +1,164 @@
+/* ==========================================================================
+   kawaii-ui Modal Component
+   Kawaii / Y2K overlay dialog
+   ========================================================================== */
+
+:host {
+  display: contents;
+}
+
+:host([hidden]),
+:host(:not([open])) {
+  display: none;
+}
+
+.bloom-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--bloom-z-modal, 400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--bloom-space-4, 1rem);
+  background: rgb(18 14 30 / 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: bloom-modal-fade-in 150ms ease-out;
+}
+
+.bloom-modal__dialog {
+  position: relative;
+  width: 100%;
+  max-width: var(--bloom-modal-width, 32rem);
+  max-height: calc(100vh - var(--bloom-space-8, 2rem));
+  display: flex;
+  flex-direction: column;
+  background: var(--bloom-surface-base, #fff);
+  border: 2px solid var(--bloom-border-default, #e8e3ef);
+  border-radius: var(--bloom-radius-2xl, 1.5rem);
+  box-shadow: var(--bloom-shadow-xl, 0 16px 40px -8px rgb(33 26 51 / 0.12));
+  overflow: hidden;
+  animation: bloom-modal-scale-in 250ms cubic-bezier(0.22, 1.4, 0.36, 1);
+}
+
+@keyframes bloom-modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bloom-modal-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.bloom-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bloom-space-3, 0.75rem);
+  padding: var(--bloom-space-4, 1rem) var(--bloom-space-5, 1.25rem);
+  border-bottom: 1px solid var(--bloom-border-default, #e8e3ef);
+  min-height: 3.5rem;
+}
+
+:host(:not([has-header])) .bloom-modal__header {
+  padding: 0;
+  border-bottom: none;
+  min-height: 0;
+}
+
+:host(:not([has-header])) .bloom-modal__header-slot {
+  display: none;
+}
+
+.bloom-modal__header-slot {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.bloom-modal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  margin-left: auto;
+  font-size: var(--bloom-text-xl, 1.5rem);
+  line-height: 1;
+  color: var(--bloom-text-secondary, #6b6085);
+  background: transparent;
+  border: none;
+  border-radius: var(--bloom-radius-md, 0.625rem);
+  cursor: pointer;
+  font-family: inherit;
+  transition:
+    color var(--bloom-transition-fast, 150ms ease),
+    background-color var(--bloom-transition-fast, 150ms ease);
+}
+
+:host(:not([has-header])) .bloom-modal__close {
+  position: absolute;
+  top: var(--bloom-space-3, 0.75rem);
+  right: var(--bloom-space-3, 0.75rem);
+  z-index: 1;
+}
+
+.bloom-modal__close:hover {
+  color: var(--bloom-text-primary, #211a33);
+  background-color: var(--bloom-ghost-hover-bg, #fff0f6);
+}
+
+.bloom-modal__close:focus-visible {
+  outline: 2px solid var(--bloom-pink-400, #ff5da0);
+  outline-offset: 2px;
+}
+
+.bloom-modal__body {
+  flex: 1 1 auto;
+  padding: var(--bloom-space-5, 1.25rem);
+  overflow-y: auto;
+}
+
+.bloom-modal__body::-webkit-scrollbar {
+  width: 6px;
+}
+.bloom-modal__body::-webkit-scrollbar-track {
+  background: var(--bloom-scrollbar-track, #f3f0f7);
+  border-radius: var(--bloom-radius-pill, 9999px);
+}
+.bloom-modal__body::-webkit-scrollbar-thumb {
+  background: var(--bloom-scrollbar-thumb, #ff85b8);
+  border-radius: var(--bloom-radius-pill, 9999px);
+}
+.bloom-modal__body::-webkit-scrollbar-thumb:hover {
+  background: var(--bloom-scrollbar-thumb-hover, #ff5da0);
+}
+
+.bloom-modal__footer {
+  padding: var(--bloom-space-3, 0.75rem) var(--bloom-space-5, 1.25rem);
+  border-top: 1px solid var(--bloom-border-default, #e8e3ef);
+}
+
+:host(:not([has-footer])) .bloom-modal__footer {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom-modal__backdrop,
+  .bloom-modal__dialog {
+    animation: none;
+  }
+}

@@ -1,0 +1,126 @@
+/* ==========================================================================
+   kawaii-ui Badge Component
+   Kawaii / Y2K pill badge
+   ========================================================================== */
+
+:host {
+  display: inline-block;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+.bloom-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bloom-space-1-5, 0.375rem);
+  font-family: var(--bloom-font-family-display, 'Quicksand', system-ui, sans-serif);
+  font-weight: var(--bloom-font-semibold, 600);
+  white-space: nowrap;
+  border-radius: var(--bloom-radius-pill, 9999px);
+  border: 1.5px solid transparent;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* Sizes */
+.bloom-badge--sm {
+  padding: var(--bloom-space-0-5, 0.125rem) var(--bloom-space-2, 0.5rem);
+  font-size: var(--bloom-text-xs, 0.75rem);
+}
+
+.bloom-badge--md {
+  padding: var(--bloom-space-1, 0.25rem) var(--bloom-space-3, 0.75rem);
+  font-size: var(--bloom-text-sm, 0.875rem);
+}
+
+/* Dot */
+.bloom-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--bloom-radius-circle, 50%);
+  flex-shrink: 0;
+  animation: bloom-badge-dot-pulse 2s ease-in-out infinite;
+}
+
+.bloom-badge--sm .bloom-badge__dot {
+  width: 5px;
+  height: 5px;
+}
+
+@keyframes bloom-badge-dot-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Colors */
+.bloom-badge--pink {
+  background-color: var(--bloom-pink-100, #ffd6e8);
+  color: var(--bloom-pink-700, #b81258);
+  border-color: var(--bloom-pink-200, #ffadd2);
+}
+.bloom-badge--pink .bloom-badge__dot {
+  background-color: var(--bloom-pink-500, #ff2d8a);
+}
+
+.bloom-badge--blue {
+  background-color: var(--bloom-blue-100, #d4e9ff);
+  color: var(--bloom-blue-700, #004fb8);
+  border-color: var(--bloom-blue-200, #a8d2ff);
+}
+.bloom-badge--blue .bloom-badge__dot {
+  background-color: var(--bloom-blue-500, #1a7fff);
+}
+
+.bloom-badge--green {
+  background-color: var(--bloom-lime-100, #dcffc4);
+  color: var(--bloom-lime-700, #327305);
+  border-color: var(--bloom-lime-200, #b8ff8a);
+}
+.bloom-badge--green .bloom-badge__dot {
+  background-color: var(--bloom-lime-500, #56b812);
+}
+
+.bloom-badge--lilac {
+  background-color: var(--bloom-lilac-100, #e8dbff);
+  color: var(--bloom-lilac-700, #5e30a5);
+  border-color: var(--bloom-lilac-200, #d4b8ff);
+}
+.bloom-badge--lilac .bloom-badge__dot {
+  background-color: var(--bloom-lilac-500, #9055e8);
+}
+
+.bloom-badge--yellow {
+  background-color: var(--bloom-yellow-100, #fff9b3);
+  color: var(--bloom-yellow-800, #4d4400);
+  border-color: var(--bloom-yellow-200, #fff380);
+}
+.bloom-badge--yellow .bloom-badge__dot {
+  background-color: var(--bloom-yellow-500, #e6cc00);
+}
+
+.bloom-badge--neutral {
+  background-color: var(--bloom-neutral-100, #f3f0f7);
+  color: var(--bloom-neutral-700, #504866);
+  border-color: var(--bloom-neutral-200, #e8e3ef);
+}
+.bloom-badge--neutral .bloom-badge__dot {
+  background-color: var(--bloom-neutral-500, #8e82a6);
+}
+
+.bloom-badge__label {
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom-badge__dot {
+    animation: none;
+  }
+}

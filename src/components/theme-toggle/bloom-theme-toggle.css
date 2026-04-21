@@ -1,0 +1,69 @@
+/* ==========================================================================
+   kawaii-ui Theme Toggle Component
+   Kawaii / Y2K sun / moon toggle
+   ========================================================================== */
+
+:host {
+  display: inline-block;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+.bloom-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 2px solid var(--bloom-border-default, #e8e3ef);
+  border-radius: var(--bloom-radius-xl, 1.25rem);
+  background-color: var(--bloom-surface-raised, #faf8fc);
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  transition:
+    background-color var(--bloom-duration-fast, 150ms) var(--bloom-ease-default, ease),
+    border-color var(--bloom-duration-fast, 150ms) var(--bloom-ease-default, ease),
+    transform var(--bloom-duration-fast, 150ms) var(--bloom-ease-bounce, ease);
+}
+
+.bloom-theme-toggle:hover {
+  background-color: var(--bloom-ghost-hover-bg, #fff0f6);
+  border-color: var(--bloom-ghost-hover-border, #ffd6e8);
+  transform: translateY(-2px);
+}
+
+.bloom-theme-toggle:active {
+  transform: translateY(1px);
+}
+
+.bloom-theme-toggle:focus-visible {
+  outline: 2px solid var(--bloom-border-focus, #ff5da0);
+  outline-offset: 2px;
+}
+
+.bloom-theme-toggle__icon {
+  font-size: var(--bloom-text-lg, 1.25rem);
+  line-height: 1;
+  user-select: none;
+  transition: transform var(--bloom-duration-normal, 250ms) var(--bloom-ease-spring, ease);
+}
+
+.bloom-theme-toggle:hover .bloom-theme-toggle__icon {
+  transform: rotate(20deg) scale(1.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom-theme-toggle,
+  .bloom-theme-toggle__icon {
+    transition: none;
+  }
+  .bloom-theme-toggle:hover,
+  .bloom-theme-toggle:active,
+  .bloom-theme-toggle:hover .bloom-theme-toggle__icon {
+    transform: none;
+  }
+}

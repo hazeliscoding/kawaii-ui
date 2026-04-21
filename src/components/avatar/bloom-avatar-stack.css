@@ -1,0 +1,44 @@
+/* ==========================================================================
+   kawaii-ui Avatar Stack
+   Overlapping group of avatars.
+   Stack strips the outer ring on slotted avatars via inherited CSS vars.
+   ========================================================================== */
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  /* Strip the decorative outline from child avatars, thicken the border so
+     overlapping avatars stay readable. */
+  --_bloom-avatar-outline: none;
+  --_bloom-avatar-outline-offset: 0;
+  --_bloom-avatar-border-width: 2.5px;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+.bloom-avatar-stack {
+  display: flex;
+  align-items: center;
+}
+
+::slotted(bloom-avatar) {
+  transition: transform var(--bloom-duration-fast, 150ms) var(--bloom-ease-bounce, ease);
+  position: relative;
+}
+
+::slotted(bloom-avatar:not(:first-child)) {
+  margin-left: -0.5rem;
+}
+
+::slotted(bloom-avatar:hover) {
+  z-index: 1;
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::slotted(bloom-avatar:hover) {
+    transform: none;
+  }
+}

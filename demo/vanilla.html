@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kawaii-ui ✨ vanilla HTML</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true">
+      <div class="bg__blob bg__blob--pink"></div>
+      <div class="bg__blob bg__blob--blue"></div>
+      <div class="bg__blob bg__blob--lilac"></div>
+      <div class="bg__blob bg__blob--peach"></div>
+    </div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+
+    <div class="demo">
+      <header class="topbar">
+        <a href="./index.html" class="topbar__brand">
+          <span class="topbar__brand-sparkle">✨</span>
+          kawaii-ui
+        </a>
+        <nav class="topbar__nav" aria-label="Demo pages">
+          <a href="./index.html">Overview</a>
+          <a href="./htmx.html">HTMX</a>
+          <a href="./vanilla.html" aria-current="page">Vanilla</a>
+          <a href="https://github.com/hazeliscoding/kawaii-ui">GitHub</a>
+        </nav>
+        <div class="topbar__actions">
+          <button
+            class="topbar__icon-btn"
+            type="button"
+            id="themeToggle"
+            aria-label="Toggle dark mode"
+          >
+            🌙
+          </button>
+        </div>
+      </header>
+
+      <section class="hero">
+        <span class="hero__eyebrow">🧼 No build step</span>
+        <h1 class="hero__title">Plain HTML</h1>
+        <p class="hero__tagline">
+          Loaded from <code>dist/</code> — the same artifact consumers install
+          from npm. No Vite, no bundler, no framework. Just a stylesheet and a
+          module script.
+        </p>
+        <div class="chips">
+          <span class="chip chip--pink">Zero config</span>
+          <span class="chip chip--blue">CDN-ready</span>
+          <span class="chip chip--lilac">ES modules</span>
+        </div>
+      </section>
+
+      <main class="content" style="max-width: 880px; margin: 0 auto;">
+        <section class="section">
+          <div class="section__header">
+            <div class="section__eyebrow">Live</div>
+            <h2 class="section__title">Rendered from dist/</h2>
+            <p class="section__desc">
+              Everything below is powered by the production build in
+              <code>/dist/</code>. The page loads one stylesheet and one module
+              script — nothing else.
+            </p>
+          </div>
+
+          <div class="panel">
+            <div class="panel__label">
+              <span class="panel__dot"></span>
+              Variants
+            </div>
+            <div class="panel__preview">
+              <bloom-button variant="primary">Primary</bloom-button>
+              <bloom-button variant="secondary">Secondary</bloom-button>
+              <bloom-button variant="accent">Accent</bloom-button>
+              <bloom-button variant="ghost">Ghost</bloom-button>
+              <bloom-button variant="danger">Danger</bloom-button>
+            </div>
+<pre class="panel__code"><span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="str">"stylesheet"</span> <span class="attr">href</span>=<span class="str">"/dist/styles/all.css"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">type</span>=<span class="str">"module"</span> <span class="attr">src</span>=<span class="str">"/dist/components/button/bloom-button.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+
+<span class="tag">&lt;bloom-button</span> <span class="attr">variant</span>=<span class="str">"primary"</span><span class="tag">&gt;</span>Primary<span class="tag">&lt;/bloom-button&gt;</span></pre>
+          </div>
+
+          <div class="panel">
+            <div class="panel__label">
+              <span class="panel__dot"></span>
+              Sizes + icons
+            </div>
+            <div class="panel__preview">
+              <bloom-button size="sm" variant="accent">
+                <span slot="icon-left">💫</span>
+                Small
+              </bloom-button>
+              <bloom-button size="md" variant="primary">
+                <span slot="icon-left">💖</span>
+                Medium
+              </bloom-button>
+              <bloom-button size="lg" variant="secondary">
+                <span slot="icon-left">✨</span>
+                Large
+              </bloom-button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        Made with <span style="color: var(--bloom-pink-500)">💖</span> ·
+        <a href="https://github.com/hazeliscoding/kawaii-ui">source</a> ·
+        <a href="https://www.npmjs.com/package/@hazeliscoding/kawaii-ui">npm</a>
+      </footer>
+    </div>
+
+    <script type="module">
+      import '../src/styles/tokens.css';
+      import '../src/styles/base.css';
+      import '../src/styles/animations.css';
+      import '../src/styles/utilities.css';
+      import './demo.css';
+      // Same artifact consumers get from npm — this page just demonstrates that
+      // dropping one script tag + tokens.css into any HTML page Just Works.
+      import '../src/components/button/bloom-button.ts';
+
+      const themeToggle = document.getElementById('themeToggle');
+      const applyLabel = () => {
+        if (!themeToggle) return;
+        const isDark = document.documentElement.dataset.theme === 'dark';
+        themeToggle.textContent = isDark ? '☀️' : '🌙';
+      };
+      applyLabel();
+      themeToggle?.addEventListener('click', () => {
+        const html = document.documentElement;
+        html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+        applyLabel();
+      });
+    </script>
+  </body>
+</html>

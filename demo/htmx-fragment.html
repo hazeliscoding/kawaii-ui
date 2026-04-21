@@ -1,0 +1,22 @@
+<div class="demo__row">
+  <bloom-button variant="secondary" size="sm">
+    <span slot="icon-left">💫</span>
+    Swapped in
+  </bloom-button>
+  <bloom-button variant="accent">Also swapped</bloom-button>
+  <bloom-button variant="ghost" size="lg">
+    <span slot="icon-left">✨</span>
+    Ghost with icon
+  </bloom-button>
+</div>
+<p
+  style="
+    margin-top: var(--bloom-space-3);
+    color: var(--bloom-text-secondary);
+    font-size: var(--bloom-text-sm);
+  "
+>
+  These three buttons were fetched via <code>hx-get</code> and inserted into the
+  DOM. Because they're standard custom elements, the browser upgrades them
+  automatically — no framework required.
+</p>

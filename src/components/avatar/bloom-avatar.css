@@ -1,0 +1,160 @@
+/* ==========================================================================
+   kawaii-ui Avatar Component
+   Kawaii / Y2K circular avatar with decorative border + status dot
+   ========================================================================== */
+
+:host {
+  display: inline-block;
+  /* Stack containers can override these to merge avatars cleanly */
+  --_bloom-avatar-outline: 2px solid var(--bloom-pink-200, #ffadd2);
+  --_bloom-avatar-outline-offset: 1px;
+  --_bloom-avatar-border-width: 2px;
+  --_bloom-avatar-border-color: var(--bloom-surface-base, #fff);
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+.bloom-avatar {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.bloom-avatar__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--bloom-radius-circle, 50%);
+  overflow: hidden;
+  background: var(
+    --bloom-gradient-kawaii,
+    linear-gradient(135deg, #ffd6e8 0%, #d4b8ff 50%, #a8d2ff 100%)
+  );
+  border: var(--_bloom-avatar-border-width) solid var(--_bloom-avatar-border-color);
+  box-shadow: var(--bloom-shadow-sm, 0 2px 6px -1px rgb(33 26 51 / 0.06));
+  outline: var(--_bloom-avatar-outline);
+  outline-offset: var(--_bloom-avatar-outline-offset);
+}
+
+/* Size variants */
+.bloom-avatar--xs .bloom-avatar__frame {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-width: 1.5px;
+  outline-width: 1.5px;
+}
+.bloom-avatar--xs .bloom-avatar__initials {
+  font-size: 0.5rem;
+}
+
+.bloom-avatar--sm .bloom-avatar__frame {
+  width: 2rem;
+  height: 2rem;
+  border-width: 1.5px;
+  outline-width: 1.5px;
+}
+.bloom-avatar--sm .bloom-avatar__initials {
+  font-size: 0.625rem;
+}
+
+.bloom-avatar--md .bloom-avatar__frame {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+.bloom-avatar--md .bloom-avatar__initials {
+  font-size: var(--bloom-text-sm, 0.875rem);
+}
+
+.bloom-avatar--lg .bloom-avatar__frame {
+  width: 4rem;
+  height: 4rem;
+  border-width: 3px;
+  outline-width: 2.5px;
+  outline-offset: 2px;
+}
+.bloom-avatar--lg .bloom-avatar__initials {
+  font-size: var(--bloom-text-lg, 1.25rem);
+}
+
+.bloom-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bloom-avatar__initials {
+  font-family: var(--bloom-font-family-display, 'Quicksand', system-ui, sans-serif);
+  font-weight: var(--bloom-font-bold, 700);
+  color: var(--bloom-neutral-0, #fff);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
+  line-height: 1;
+  user-select: none;
+}
+
+/* Status dot */
+.bloom-avatar__status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: var(--bloom-radius-circle, 50%);
+  border: 2px solid var(--bloom-surface-base, #fff);
+}
+
+.bloom-avatar--xs .bloom-avatar__status {
+  width: 8px;
+  height: 8px;
+  border-width: 1.5px;
+  bottom: -1px;
+  right: -1px;
+}
+.bloom-avatar--sm .bloom-avatar__status {
+  width: 10px;
+  height: 10px;
+  border-width: 1.5px;
+  bottom: -1px;
+  right: -1px;
+}
+.bloom-avatar--md .bloom-avatar__status {
+  width: 12px;
+  height: 12px;
+}
+.bloom-avatar--lg .bloom-avatar__status {
+  width: 16px;
+  height: 16px;
+  border-width: 2.5px;
+  bottom: 1px;
+  right: 1px;
+}
+
+.bloom-avatar__status--online {
+  background-color: var(--bloom-success, #34d399);
+  box-shadow: 0 0 6px rgb(52 211 153 / 0.5);
+}
+
+.bloom-avatar__status--offline {
+  background-color: var(--bloom-neutral-400, #b5abca);
+}
+
+.bloom-avatar__status--watching {
+  background-color: var(--bloom-pink-500, #ff2d8a);
+  animation: bloom-avatar-watching-pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 6px rgb(255 45 138 / 0.5);
+}
+
+@keyframes bloom-avatar-watching-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 4px rgb(255 45 138 / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 10px rgb(255 45 138 / 0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom-avatar__status--watching {
+    animation: none;
+  }
+}

@@ -1,0 +1,1061 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kawaii-ui ✨ a kawaii Y2K component library</title>
+    <meta
+      name="description"
+      content="Gel buttons, pastel gradients, glossy surfaces. A framework-agnostic kawaii web component library."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+  </head>
+  <body>
+    <!-- Kawaii ambient background -->
+    <div class="bg" aria-hidden="true">
+      <div class="bg__blob bg__blob--pink"></div>
+      <div class="bg__blob bg__blob--blue"></div>
+      <div class="bg__blob bg__blob--lilac"></div>
+      <div class="bg__blob bg__blob--peach"></div>
+    </div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+
+    <div class="demo">
+      <!-- Top bar -->
+      <header class="topbar">
+        <a href="./index.html" class="topbar__brand">
+          <span class="topbar__brand-sparkle">✨</span>
+          kawaii-ui
+        </a>
+        <nav class="topbar__nav" aria-label="Demo pages">
+          <a href="./index.html" aria-current="page">Overview</a>
+          <a href="./htmx.html">HTMX</a>
+          <a href="./vanilla.html">Vanilla</a>
+          <a href="https://github.com/hazeliscoding/kawaii-ui">GitHub</a>
+        </nav>
+        <div class="topbar__actions">
+          <button
+            class="topbar__icon-btn"
+            type="button"
+            id="themeToggle"
+            aria-label="Toggle dark mode"
+            title="Toggle dark mode"
+          >
+            🌙
+          </button>
+        </div>
+      </header>
+
+      <!-- Hero -->
+      <section class="hero">
+        <span class="hero__eyebrow">✨ v0.0.1 · Phase 0 preview</span>
+        <h1 class="hero__title">kawaii-ui</h1>
+        <p class="hero__tagline">
+          A framework-agnostic kawaii / Y2K component library. Drop
+          <code>&lt;bloom-*&gt;</code> into Angular, HTMX, React, Vue, or plain
+          HTML — built on <strong>Lit</strong>, themed through CSS custom
+          properties, zero lock-in.
+        </p>
+        <div class="hero__ctas">
+          <bloom-button variant="primary" size="lg" id="installCta">
+            <span slot="icon-left">📦</span>
+            npm install
+          </bloom-button>
+          <bloom-button variant="ghost" size="lg">
+            <span slot="icon-left">⭐</span>
+            Star on GitHub
+          </bloom-button>
+        </div>
+
+        <div class="hero__preview">
+          <div class="hero__preview-row">
+            <bloom-button variant="primary">Primary</bloom-button>
+            <bloom-button variant="secondary">Secondary</bloom-button>
+            <bloom-button variant="accent">Accent</bloom-button>
+            <bloom-button variant="ghost">Ghost</bloom-button>
+            <bloom-button variant="danger">Danger</bloom-button>
+          </div>
+          <div class="hero__preview-caption">
+            &lt;bloom-button variant="primary"&gt;Primary&lt;/bloom-button&gt;
+          </div>
+        </div>
+
+        <div class="chips">
+          <span class="chip chip--pink">Lit 3</span>
+          <span class="chip chip--lilac">Web Components</span>
+          <span class="chip chip--blue">TypeScript</span>
+          <span class="chip chip--lime">MIT</span>
+          <span class="chip">5.1 KB gz</span>
+        </div>
+      </section>
+
+      <!-- Content layout -->
+      <div class="main-grid">
+        <aside class="sidebar" aria-label="Section navigation">
+          <div class="sidebar__heading">Getting started</div>
+          <a href="#features" class="sidebar__link">Features</a>
+          <a href="#install" class="sidebar__link">Install</a>
+
+          <div class="sidebar__heading">bloom-button</div>
+          <a href="#variants" class="sidebar__link">Variants</a>
+          <a href="#sizes" class="sidebar__link">Sizes</a>
+          <a href="#states" class="sidebar__link">States</a>
+          <a href="#icons" class="sidebar__link">Icons</a>
+          <a href="#events" class="sidebar__link">Events</a>
+          <a href="#forms" class="sidebar__link">Forms</a>
+
+          <div class="sidebar__heading">bloom-badge</div>
+          <a href="#badges" class="sidebar__link">Colors &amp; dots</a>
+
+          <div class="sidebar__heading">bloom-avatar</div>
+          <a href="#avatars" class="sidebar__link">Sizes &amp; status</a>
+          <a href="#avatar-stack" class="sidebar__link">Stack</a>
+
+          <div class="sidebar__heading">bloom-card</div>
+          <a href="#cards" class="sidebar__link">Default &amp; highlighted</a>
+
+          <div class="sidebar__heading">bloom-input</div>
+          <a href="#inputs" class="sidebar__link">Labels, states, slots</a>
+
+          <div class="sidebar__heading">bloom-modal</div>
+          <a href="#modals" class="sidebar__link">Dialogs &amp; focus trap</a>
+
+          <div class="sidebar__heading">bloom-compat-ring</div>
+          <a href="#compat-rings" class="sidebar__link">Score rings</a>
+
+          <div class="sidebar__heading">Compositions</div>
+          <a href="#compositions" class="sidebar__link">Real-world combos</a>
+
+          <div class="sidebar__heading">Theming</div>
+          <a href="#theming" class="sidebar__link">Playground</a>
+          <a href="#dark-mode" class="sidebar__link">Dark mode</a>
+          <a href="#theme-toggle" class="sidebar__link">Theme toggle</a>
+        </aside>
+
+        <main class="content">
+          <!-- FEATURES -->
+          <section class="section" id="features">
+            <div class="section__header">
+              <div class="section__eyebrow">Why</div>
+              <h2 class="section__title">Built for every stack</h2>
+              <p class="section__desc">
+                Each component is a standards-based custom element. Upgrade happens
+                natively, which means the same <code>&lt;bloom-button&gt;</code>
+                works in Angular templates, HTMX fragments, and plain HTML pages
+                with zero glue code.
+              </p>
+            </div>
+
+            <div class="features">
+              <div class="feature">
+                <div class="feature__icon feature__icon--pink">💖</div>
+                <div class="feature__title">Kawaii by default</div>
+                <div class="feature__body">
+                  Gel buttons, glossy surfaces, pastel gradients, glow shadows —
+                  the whole Y2K aesthetic, production-ready.
+                </div>
+              </div>
+              <div class="feature">
+                <div class="feature__icon feature__icon--blue">🧩</div>
+                <div class="feature__title">Framework-agnostic</div>
+                <div class="feature__body">
+                  Lit under the hood, standard custom elements on the outside.
+                  Works in Angular, React, Vue, HTMX, or none of the above.
+                </div>
+              </div>
+              <div class="feature">
+                <div class="feature__icon feature__icon--lilac">🎨</div>
+                <div class="feature__title">Themed with CSS vars</div>
+                <div class="feature__body">
+                  Every color, radius, shadow, and transition is a CSS custom
+                  property. Override at any scope — no build step, no override
+                  props.
+                </div>
+              </div>
+              <div class="feature">
+                <div class="feature__icon feature__icon--lime">♿</div>
+                <div class="feature__title">Accessible core</div>
+                <div class="feature__body">
+                  Real <code>&lt;button&gt;</code>s, form-associated elements,
+                  focus-visible rings, reduced-motion respect, proper ARIA.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- INSTALL -->
+          <section class="section" id="install">
+            <div class="section__header">
+              <div class="section__eyebrow">Setup</div>
+              <h2 class="section__title">Install</h2>
+              <p class="section__desc">
+                Pick whichever path matches your project. All three load the same
+                artifact under the hood.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                npm (Angular, React, Vite, Webpack…)
+              </div>
+<pre class="panel__code"><span class="comment">// main.ts — import once, use anywhere</span>
+<span class="tag">import</span> <span class="str">'@hazeliscoding/kawaii-ui'</span><span class="punct">;</span>
+<span class="tag">import</span> <span class="str">'@hazeliscoding/kawaii-ui/styles/tokens.css'</span><span class="punct">;</span></pre>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                CDN (HTMX, vanilla, static sites)
+              </div>
+<pre class="panel__code"><span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="str">"stylesheet"</span> <span class="attr">href</span>=<span class="str">"https://unpkg.com/@hazeliscoding/kawaii-ui/dist/styles/tokens.css"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">type</span>=<span class="str">"module"</span> <span class="attr">src</span>=<span class="str">"https://unpkg.com/@hazeliscoding/kawaii-ui"</span><span class="tag">&gt;&lt;/script&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- VARIANTS -->
+          <section class="section" id="variants">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-button</div>
+              <h2 class="section__title">Variants</h2>
+              <p class="section__desc">
+                Five semantic variants covering the typical kawaii/Y2K palette.
+                Each uses a gel gradient with an inner highlight and a colored
+                glow shadow.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Variants
+              </div>
+              <div class="panel__preview">
+                <bloom-button variant="primary">Primary</bloom-button>
+                <bloom-button variant="secondary">Secondary</bloom-button>
+                <bloom-button variant="accent">Accent</bloom-button>
+                <bloom-button variant="ghost">Ghost</bloom-button>
+                <bloom-button variant="danger">Danger</bloom-button>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-button</span> <span class="attr">variant</span>=<span class="str">"primary"</span><span class="tag">&gt;</span>Primary<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;bloom-button</span> <span class="attr">variant</span>=<span class="str">"secondary"</span><span class="tag">&gt;</span>Secondary<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;bloom-button</span> <span class="attr">variant</span>=<span class="str">"accent"</span><span class="tag">&gt;</span>Accent<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;bloom-button</span> <span class="attr">variant</span>=<span class="str">"ghost"</span><span class="tag">&gt;</span>Ghost<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;bloom-button</span> <span class="attr">variant</span>=<span class="str">"danger"</span><span class="tag">&gt;</span>Danger<span class="tag">&lt;/bloom-button&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- SIZES -->
+          <section class="section" id="sizes">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-button</div>
+              <h2 class="section__title">Sizes</h2>
+              <p class="section__desc">
+                Three sizes — <code>sm</code>, <code>md</code>, and <code>lg</code>
+                — with consistent padding, corner radius, and minimum height.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Sizes
+              </div>
+              <div class="panel__preview">
+                <bloom-button size="sm">Small</bloom-button>
+                <bloom-button size="md">Medium</bloom-button>
+                <bloom-button size="lg">Large</bloom-button>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-button</span> <span class="attr">size</span>=<span class="str">"sm"</span><span class="tag">&gt;</span>Small<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;bloom-button</span> <span class="attr">size</span>=<span class="str">"md"</span><span class="tag">&gt;</span>Medium<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;bloom-button</span> <span class="attr">size</span>=<span class="str">"lg"</span><span class="tag">&gt;</span>Large<span class="tag">&lt;/bloom-button&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- STATES -->
+          <section class="section" id="states">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-button</div>
+              <h2 class="section__title">States</h2>
+              <p class="section__desc">
+                Disabled, loading, and full-width modifiers. Loading preserves the
+                button's width so layout doesn't jump.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                States
+              </div>
+              <div class="panel__preview">
+                <bloom-button>Default</bloom-button>
+                <bloom-button disabled>Disabled</bloom-button>
+                <bloom-button loading>Loading</bloom-button>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-button&gt;</span>Default<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;bloom-button</span> <span class="attr">disabled</span><span class="tag">&gt;</span>Disabled<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;bloom-button</span> <span class="attr">loading</span><span class="tag">&gt;</span>Loading<span class="tag">&lt;/bloom-button&gt;</span></pre>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Full-width
+              </div>
+              <div class="panel__preview panel__preview--stack">
+                <bloom-button variant="accent" full-width>Full-width accent</bloom-button>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-button</span> <span class="attr">variant</span>=<span class="str">"accent"</span> <span class="attr">full-width</span><span class="tag">&gt;</span>Full-width accent<span class="tag">&lt;/bloom-button&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- ICONS -->
+          <section class="section" id="icons">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-button</div>
+              <h2 class="section__title">Icons</h2>
+              <p class="section__desc">
+                Two named slots — <code>icon-left</code> and <code>icon-right</code>
+                — accept any HTML: emoji, SVG, icon-font spans. They're hidden
+                when empty, so no stray padding.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Icon slots
+              </div>
+              <div class="panel__preview">
+                <bloom-button variant="primary">
+                  <span slot="icon-left">💖</span>
+                  Like
+                </bloom-button>
+                <bloom-button variant="secondary">
+                  Share
+                  <span slot="icon-right">✨</span>
+                </bloom-button>
+                <bloom-button variant="accent">
+                  <span slot="icon-left">⭐</span>
+                  Favorite
+                  <span slot="icon-right">⭐</span>
+                </bloom-button>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-button</span> <span class="attr">variant</span>=<span class="str">"primary"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="slot">slot</span>=<span class="str">"icon-left"</span><span class="tag">&gt;</span>💖<span class="tag">&lt;/span&gt;</span>
+  Like
+<span class="tag">&lt;/bloom-button&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- EVENTS -->
+          <section class="section" id="events">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-button</div>
+              <h2 class="section__title">Events</h2>
+              <p class="section__desc">
+                Clicks dispatch a composed <code>bloom-click</code> CustomEvent.
+                The original <code>MouseEvent</code> is available at
+                <code>event.detail.originalEvent</code>.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Live counter
+              </div>
+              <div class="panel__preview">
+                <bloom-button id="clickTarget" variant="primary">
+                  <span slot="icon-left">✨</span>
+                  Click me
+                </bloom-button>
+                <span class="event-output">
+                  Clicks:
+                  <span class="event-output__count" id="clickOutput">0</span>
+                </span>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-button</span> <span class="attr">id</span>=<span class="str">"cta"</span><span class="tag">&gt;</span>Click me<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;script&gt;</span>
+  cta.<span class="attr">addEventListener</span><span class="punct">(</span><span class="str">'bloom-click'</span><span class="punct">,</span> <span class="punct">(</span>e<span class="punct">)</span> <span class="punct">=&gt;</span> <span class="punct">{</span>
+    <span class="attr">console</span>.<span class="attr">log</span><span class="punct">(</span>e.<span class="attr">detail</span>.<span class="attr">originalEvent</span><span class="punct">);</span>
+  <span class="punct">});</span>
+<span class="tag">&lt;/script&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- FORMS -->
+          <section class="section" id="forms">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-button</div>
+              <h2 class="section__title">Forms</h2>
+              <p class="section__desc">
+                <code>bloom-button</code> is a form-associated custom element.
+                <code>type="submit"</code> triggers native form submission,
+                <code>type="reset"</code> resets — just like the built-in button.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Submit / reset
+              </div>
+              <div class="panel__preview panel__preview--start">
+                <form id="demoForm" class="form-demo">
+                  <div class="form-field">
+                    <label for="nameField" class="form-field__label">Display name</label>
+                    <input id="nameField" name="name" required placeholder="SakuraChan" />
+                  </div>
+                  <div class="form-field">
+                    <label for="animeField" class="form-field__label">Favorite anime</label>
+                    <input id="animeField" name="anime" placeholder="Spy x Family" />
+                  </div>
+                  <div class="panel__preview" style="padding: 0; min-height: 0; background: none; justify-content: flex-start;">
+                    <bloom-button type="submit" variant="primary">
+                      <span slot="icon-left">✨</span>
+                      Submit
+                    </bloom-button>
+                    <bloom-button type="reset" variant="ghost">Reset</bloom-button>
+                  </div>
+                  <div id="formOutput" class="form-result">Form not submitted yet</div>
+                </form>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;form&gt;</span>
+  <span class="tag">&lt;input</span> <span class="attr">name</span>=<span class="str">"name"</span> <span class="attr">required</span> <span class="tag">/&gt;</span>
+  <span class="tag">&lt;bloom-button</span> <span class="attr">type</span>=<span class="str">"submit"</span> <span class="attr">variant</span>=<span class="str">"primary"</span><span class="tag">&gt;</span>Submit<span class="tag">&lt;/bloom-button&gt;</span>
+  <span class="tag">&lt;bloom-button</span> <span class="attr">type</span>=<span class="str">"reset"</span> <span class="attr">variant</span>=<span class="str">"ghost"</span><span class="tag">&gt;</span>Reset<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;/form&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- BADGES -->
+          <section class="section" id="badges">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-badge</div>
+              <h2 class="section__title">Badges</h2>
+              <p class="section__desc">
+                Pill-shaped status tags in six kawaii pastel colors. Optional
+                dot indicator pulses gently for live/active states.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Colors
+              </div>
+              <div class="panel__preview">
+                <bloom-badge color="pink">Pink</bloom-badge>
+                <bloom-badge color="blue">Blue</bloom-badge>
+                <bloom-badge color="green">Green</bloom-badge>
+                <bloom-badge color="lilac">Lilac</bloom-badge>
+                <bloom-badge color="yellow">Yellow</bloom-badge>
+                <bloom-badge color="neutral">Neutral</bloom-badge>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-badge</span> <span class="attr">color</span>=<span class="str">"pink"</span><span class="tag">&gt;</span>Pink<span class="tag">&lt;/bloom-badge&gt;</span>
+<span class="tag">&lt;bloom-badge</span> <span class="attr">color</span>=<span class="str">"lilac"</span><span class="tag">&gt;</span>Lilac<span class="tag">&lt;/bloom-badge&gt;</span></pre>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                With status dot
+              </div>
+              <div class="panel__preview">
+                <bloom-badge color="green" dot>Watching</bloom-badge>
+                <bloom-badge color="pink" dot>Completed</bloom-badge>
+                <bloom-badge color="blue" dot>Plan to Watch</bloom-badge>
+                <bloom-badge color="yellow" dot>On Hold</bloom-badge>
+                <bloom-badge color="neutral" dot>Dropped</bloom-badge>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-badge</span> <span class="attr">color</span>=<span class="str">"green"</span> <span class="attr">dot</span><span class="tag">&gt;</span>Watching<span class="tag">&lt;/bloom-badge&gt;</span></pre>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Sizes
+              </div>
+              <div class="panel__preview">
+                <bloom-badge size="sm" color="pink">Small</bloom-badge>
+                <bloom-badge size="md" color="lilac">Medium</bloom-badge>
+              </div>
+            </div>
+          </section>
+
+          <!-- AVATARS -->
+          <section class="section" id="avatars">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-avatar</div>
+              <h2 class="section__title">Avatars</h2>
+              <p class="section__desc">
+                Circular avatars with a decorative outer ring, automatic initials
+                fallback, and optional status dots. The
+                <code>watching</code> status gently pulses pink.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Sizes
+              </div>
+              <div class="panel__preview" style="align-items: flex-end;">
+                <bloom-avatar size="xs" name="Sakura"></bloom-avatar>
+                <bloom-avatar size="sm" name="Naruto Uzumaki"></bloom-avatar>
+                <bloom-avatar size="md" name="Mikasa Ackerman"></bloom-avatar>
+                <bloom-avatar size="lg" name="Gojo Satoru"></bloom-avatar>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-avatar</span> <span class="attr">size</span>=<span class="str">"lg"</span> <span class="attr">name</span>=<span class="str">"Gojo Satoru"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span></pre>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                With status
+              </div>
+              <div class="panel__preview">
+                <bloom-avatar size="md" name="Online User" status="online"></bloom-avatar>
+                <bloom-avatar size="md" name="Offline User" status="offline"></bloom-avatar>
+                <bloom-avatar size="md" name="Watching Now" status="watching"></bloom-avatar>
+                <bloom-avatar size="md" name="No Status"></bloom-avatar>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-avatar</span> <span class="attr">status</span>=<span class="str">"online"</span> <span class="attr">name</span>=<span class="str">"Hazel"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span>
+<span class="tag">&lt;bloom-avatar</span> <span class="attr">status</span>=<span class="str">"watching"</span> <span class="attr">name</span>=<span class="str">"Luna"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- AVATAR STACK -->
+          <section class="section" id="avatar-stack">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-avatar-stack</div>
+              <h2 class="section__title">Avatar stack</h2>
+              <p class="section__desc">
+                Group avatars with a subtle horizontal overlap — hover any one
+                to lift it forward.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Watch party members
+              </div>
+              <div class="panel__preview">
+                <bloom-avatar-stack aria-label="Watch party members">
+                  <bloom-avatar size="sm" name="Sakura Chan" status="online"></bloom-avatar>
+                  <bloom-avatar size="sm" name="Naruto Uzumaki" status="online"></bloom-avatar>
+                  <bloom-avatar size="sm" name="Hinata Hyuga" status="watching"></bloom-avatar>
+                  <bloom-avatar size="sm" name="Sasuke Uchiha" status="offline"></bloom-avatar>
+                </bloom-avatar-stack>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-avatar-stack</span> <span class="attr">aria-label</span>=<span class="str">"Watch party"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;bloom-avatar</span> <span class="attr">size</span>=<span class="str">"sm"</span> <span class="attr">name</span>=<span class="str">"Sakura"</span> <span class="attr">status</span>=<span class="str">"online"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span>
+  <span class="tag">&lt;bloom-avatar</span> <span class="attr">size</span>=<span class="str">"sm"</span> <span class="attr">name</span>=<span class="str">"Naruto"</span> <span class="attr">status</span>=<span class="str">"watching"</span><span class="tag">&gt;&lt;/bloom-avatar&gt;</span>
+<span class="tag">&lt;/bloom-avatar-stack&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- CARDS -->
+          <section class="section" id="cards">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-card</div>
+              <h2 class="section__title">Cards</h2>
+              <p class="section__desc">
+                Content containers with a soft hover lift and optional
+                <code>highlighted</code> variant that adds an animated rainbow
+                sparkle border. Named <code>header</code> and <code>footer</code>
+                slots.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Default + highlighted
+              </div>
+              <div
+                class="panel__preview"
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                  gap: var(--bloom-space-4);
+                  align-items: stretch;
+                  justify-content: stretch;
+                "
+              >
+                <bloom-card>
+                  <h3 slot="header" style="margin: 0;">Default card</h3>
+                  <p style="margin: 0;">
+                    A standard card with soft border and hover lift.
+                  </p>
+                  <div slot="footer">
+                    <bloom-button variant="ghost" size="sm">View more</bloom-button>
+                  </div>
+                </bloom-card>
+
+                <bloom-card variant="highlighted">
+                  <h3 slot="header" style="margin: 0;">Highlighted</h3>
+                  <p style="margin: 0;">
+                    Animated rainbow sparkle border for emphasis.
+                  </p>
+                  <div slot="footer">
+                    <bloom-button variant="primary" size="sm">Explore</bloom-button>
+                  </div>
+                </bloom-card>
+
+                <bloom-card>
+                  <h3 slot="header" style="margin: 0;">Anime Night</h3>
+                  <p style="margin: 0;">
+                    Watch "Spy x Family" with your crew. Rated 9/10 so far!
+                  </p>
+                  <div slot="footer">
+                    <bloom-badge color="green" dot>Watching</bloom-badge>
+                  </div>
+                </bloom-card>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-card</span> <span class="attr">variant</span>=<span class="str">"highlighted"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;h3</span> <span class="slot">slot</span>=<span class="str">"header"</span><span class="tag">&gt;</span>Highlighted<span class="tag">&lt;/h3&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Body content<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;div</span> <span class="slot">slot</span>=<span class="str">"footer"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;bloom-button</span> <span class="attr">size</span>=<span class="str">"sm"</span><span class="tag">&gt;</span>Explore<span class="tag">&lt;/bloom-button&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/bloom-card&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- INPUTS -->
+          <section class="section" id="inputs">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-input</div>
+              <h2 class="section__title">Inputs</h2>
+              <p class="section__desc">
+                Form-associated text inputs with labels, hints, error states,
+                and <code>prefix</code>/<code>suffix</code> slots. Participates
+                in native <code>&lt;form&gt;</code> submission and reset, just
+                like <code>bloom-button</code>.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Labels &amp; hints
+              </div>
+              <div
+                class="panel__preview"
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                  gap: var(--bloom-space-4);
+                  align-items: stretch;
+                "
+              >
+                <bloom-input
+                  label="Display name"
+                  placeholder="SakuraChan"
+                  hint="This is how others will see you"
+                ></bloom-input>
+                <bloom-input
+                  label="Email"
+                  type="email"
+                  placeholder="you@example.com"
+                  required
+                ></bloom-input>
+                <bloom-input
+                  label="Favorite anime"
+                  placeholder="Type here…"
+                  error="This field is required!"
+                ></bloom-input>
+                <bloom-input
+                  label="Disabled"
+                  placeholder="Can't touch this"
+                  disabled
+                ></bloom-input>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-input</span> <span class="attr">label</span>=<span class="str">"Email"</span> <span class="attr">type</span>=<span class="str">"email"</span> <span class="attr">required</span><span class="tag">&gt;&lt;/bloom-input&gt;</span>
+<span class="tag">&lt;bloom-input</span> <span class="attr">label</span>=<span class="str">"Name"</span> <span class="attr">error</span>=<span class="str">"Required!"</span><span class="tag">&gt;&lt;/bloom-input&gt;</span></pre>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                With prefix / suffix slots
+              </div>
+              <div
+                class="panel__preview"
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                  gap: var(--bloom-space-4);
+                "
+              >
+                <bloom-input label="Search" placeholder="Search anime…" size="sm">
+                  <span slot="prefix">🔍</span>
+                </bloom-input>
+                <bloom-input label="Username" placeholder="hazel">
+                  <span slot="prefix">@</span>
+                </bloom-input>
+                <bloom-input label="Price" placeholder="0.00">
+                  <span slot="prefix">¥</span>
+                  <span slot="suffix">/ mo</span>
+                </bloom-input>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Sizes
+              </div>
+              <div
+                class="panel__preview"
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(3, 1fr);
+                  gap: var(--bloom-space-4);
+                  align-items: flex-end;
+                "
+              >
+                <bloom-input size="sm" label="Small" placeholder="sm"></bloom-input>
+                <bloom-input size="md" label="Medium" placeholder="md"></bloom-input>
+                <bloom-input size="lg" label="Large" placeholder="lg"></bloom-input>
+              </div>
+            </div>
+          </section>
+
+          <!-- MODALS -->
+          <section class="section" id="modals">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-modal</div>
+              <h2 class="section__title">Modals</h2>
+              <p class="section__desc">
+                Overlay dialog with focus trap, Escape handling, backdrop click,
+                and body scroll lock. The consumer owns the <code>open</code>
+                attribute — the modal dispatches <code>bloom-close</code> with a
+                reason.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Trigger &amp; dialog
+              </div>
+              <div class="panel__preview">
+                <bloom-button id="openModalBtn" variant="primary">
+                  <span slot="icon-left">💬</span>
+                  Open modal
+                </bloom-button>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-button</span> <span class="attr">@click</span>=<span class="str">"modal.open = true"</span><span class="tag">&gt;</span>Open<span class="tag">&lt;/bloom-button&gt;</span>
+
+<span class="tag">&lt;bloom-modal</span> <span class="attr">#modal</span> <span class="attr">@bloom-close</span>=<span class="str">"modal.open = false"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;h3</span> <span class="slot">slot</span>=<span class="str">"header"</span><span class="tag">&gt;</span>Start a watch party<span class="tag">&lt;/h3&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Body content…<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;div</span> <span class="slot">slot</span>=<span class="str">"footer"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;bloom-button</span> <span class="attr">variant</span>=<span class="str">"primary"</span><span class="tag">&gt;</span>Continue<span class="tag">&lt;/bloom-button&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/bloom-modal&gt;</span></pre>
+            </div>
+
+            <bloom-modal id="demoModal">
+              <h3 slot="header" style="margin: 0;">Start a watch party</h3>
+              <p style="margin: 0 0 var(--bloom-space-3);">
+                Pick a friend, pick a show, let fate pick the rest. The modal
+                traps focus inside itself — try Tab and Shift+Tab. Press
+                <kbd>Escape</kbd> to close.
+              </p>
+              <bloom-input
+                label="Friend's handle"
+                placeholder="@sakura"
+                hint="They'll get an invite in their inbox."
+              ></bloom-input>
+              <div slot="footer" style="display: flex; gap: var(--bloom-space-2); justify-content: flex-end;">
+                <bloom-button id="cancelModalBtn" variant="ghost">Cancel</bloom-button>
+                <bloom-button variant="primary">
+                  <span slot="icon-left">✨</span>
+                  Send invite
+                </bloom-button>
+              </div>
+            </bloom-modal>
+          </section>
+
+          <!-- COMPAT RINGS -->
+          <section class="section" id="compat-rings">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-compat-ring</div>
+              <h2 class="section__title">Compatibility rings</h2>
+              <p class="section__desc">
+                Animated SVG score rings for 0–100 values. Stroke color crosses
+                thresholds automatically: pink under 50, yellow to 79, lime
+                green at 80+.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Threshold colors
+              </div>
+              <div
+                class="panel__preview"
+                style="display: flex; gap: var(--bloom-space-6); align-items: flex-start;"
+              >
+                <bloom-compat-ring
+                  score="92"
+                  label="Kindred spirits"
+                  context="Based on 18 shared ratings"
+                ></bloom-compat-ring>
+                <bloom-compat-ring
+                  score="65"
+                  label="Compatible"
+                  context="Based on 9 shared ratings"
+                ></bloom-compat-ring>
+                <bloom-compat-ring
+                  score="28"
+                  label="Opposite taste"
+                  context="Based on 4 shared ratings"
+                ></bloom-compat-ring>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-compat-ring</span>
+  <span class="attr">score</span>=<span class="str">"92"</span>
+  <span class="attr">label</span>=<span class="str">"Kindred spirits"</span>
+  <span class="attr">context</span>=<span class="str">"Based on 18 shared ratings"</span>
+<span class="tag">&gt;&lt;/bloom-compat-ring&gt;</span></pre>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Empty state
+              </div>
+              <div class="panel__preview">
+                <bloom-compat-ring></bloom-compat-ring>
+              </div>
+<pre class="panel__code"><span class="comment">// Omit score — custom empty copy via named slot</span>
+<span class="tag">&lt;bloom-compat-ring&gt;</span>
+  <span class="tag">&lt;p</span> <span class="slot">slot</span>=<span class="str">"empty"</span><span class="tag">&gt;</span>Rate 3 more together!<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/bloom-compat-ring&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- COMPOSITIONS -->
+          <section class="section" id="compositions">
+            <div class="section__header">
+              <div class="section__eyebrow">Compositions</div>
+              <h2 class="section__title">Real-world combos</h2>
+              <p class="section__desc">
+                Components working together — the whole point of a design
+                system.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Watch space, search, profile
+              </div>
+              <div
+                class="panel__preview"
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                  gap: var(--bloom-space-4);
+                  align-items: stretch;
+                "
+              >
+                <bloom-card variant="highlighted">
+                  <div
+                    slot="header"
+                    style="display: flex; align-items: center; gap: 0.75rem;"
+                  >
+                    <bloom-avatar-stack aria-label="Members">
+                      <bloom-avatar size="xs" name="Hazel" status="online"></bloom-avatar>
+                      <bloom-avatar size="xs" name="Luna" status="watching"></bloom-avatar>
+                    </bloom-avatar-stack>
+                    <strong>Our Anime Night</strong>
+                  </div>
+                  <p style="margin: 0 0 var(--bloom-space-2);">
+                    3 anime in backlog · 12 completed
+                  </p>
+                  <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <bloom-badge color="pink" size="sm">Romance</bloom-badge>
+                    <bloom-badge color="lilac" size="sm">Fantasy</bloom-badge>
+                  </div>
+                  <div slot="footer" style="display: flex; gap: 0.5rem;">
+                    <bloom-button variant="primary" size="sm">Open</bloom-button>
+                    <bloom-button variant="ghost" size="sm">Invite</bloom-button>
+                  </div>
+                </bloom-card>
+
+                <bloom-card>
+                  <h3 slot="header" style="margin: 0;">Find anime</h3>
+                  <bloom-input placeholder="Search AniList…" size="md">
+                    <span slot="prefix">🔍</span>
+                  </bloom-input>
+                  <div slot="footer">
+                    <bloom-button variant="accent" size="sm" full-width>Search</bloom-button>
+                  </div>
+                </bloom-card>
+
+                <bloom-card>
+                  <div
+                    slot="header"
+                    style="display: flex; align-items: center; gap: 1rem;"
+                  >
+                    <bloom-avatar size="lg" name="Hazel Coding" status="online"></bloom-avatar>
+                    <div>
+                      <strong style="display: block;">Hazel</strong>
+                      <bloom-badge color="green" dot size="sm">Online</bloom-badge>
+                    </div>
+                  </div>
+                  <p style="margin: 0;">42 anime completed · 8.2 avg score</p>
+                  <div slot="footer" style="display: flex; gap: 0.5rem;">
+                    <bloom-button variant="secondary" size="sm">View</bloom-button>
+                    <bloom-button variant="ghost" size="sm">Settings</bloom-button>
+                  </div>
+                </bloom-card>
+              </div>
+            </div>
+          </section>
+
+          <!-- THEMING -->
+          <section class="section" id="theming">
+            <div class="section__header">
+              <div class="section__eyebrow">Theming</div>
+              <h2 class="section__title">Playground</h2>
+              <p class="section__desc">
+                Swap gradient tokens at any scope — container, component, or
+                <code>:root</code>. Click a palette below to retheme these four
+                buttons without rebuilding anything.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Live theme swap
+              </div>
+              <div class="panel__preview panel__preview--stack">
+                <div class="theme-playground">
+                  <button type="button" class="theme-choice is-active" data-theme-preset="kawaii">
+                    💖 Kawaii (default)
+                  </button>
+                  <button type="button" class="theme-choice" data-theme-preset="sunset">
+                    🌅 Sunset
+                  </button>
+                  <button type="button" class="theme-choice" data-theme-preset="ocean">
+                    🌊 Ocean
+                  </button>
+                  <button type="button" class="theme-choice" data-theme-preset="forest">
+                    🌿 Forest
+                  </button>
+                </div>
+                <div id="themeTarget" class="panel__preview" style="padding: 0; min-height: 0; background: none;">
+                  <bloom-button variant="primary">Primary</bloom-button>
+                  <bloom-button variant="secondary">Secondary</bloom-button>
+                  <bloom-button variant="accent">Accent</bloom-button>
+                  <bloom-button variant="danger">Danger</bloom-button>
+                </div>
+              </div>
+<pre class="panel__code"><span class="comment">/* Theme scoped to one container — no props, no rebuild */</span>
+<span class="tag">.sunset</span> <span class="punct">{</span>
+  <span class="attr">--bloom-gradient-gel-pink</span>: <span class="str">linear-gradient(180deg, #ffe29a, #ff6b9d, #c04e8c)</span><span class="punct">;</span>
+  <span class="attr">--bloom-pink-600</span>: <span class="str">#c04e8c</span><span class="punct">;</span>
+<span class="punct">}</span></pre>
+            </div>
+          </section>
+
+          <!-- DARK MODE -->
+          <section class="section" id="dark-mode">
+            <div class="section__header">
+              <div class="section__eyebrow">Theming</div>
+              <h2 class="section__title">Dark mode</h2>
+              <p class="section__desc">
+                Set <code>data-theme="dark"</code> on any ancestor
+                (<code>&lt;html&gt;</code>, <code>&lt;main&gt;</code>, or even a
+                single section). Tokens swap automatically.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Scoped dark block
+              </div>
+              <div class="panel__preview" data-theme="dark" style="padding: var(--bloom-space-8);">
+                <bloom-button variant="primary">Primary</bloom-button>
+                <bloom-button variant="secondary">Secondary</bloom-button>
+                <bloom-button variant="accent">Accent</bloom-button>
+                <bloom-button variant="ghost">Ghost</bloom-button>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;section</span> <span class="attr">data-theme</span>=<span class="str">"dark"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;bloom-button</span> <span class="attr">variant</span>=<span class="str">"primary"</span><span class="tag">&gt;</span>Primary<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;/section&gt;</span></pre>
+            </div>
+          </section>
+
+          <!-- THEME TOGGLE COMPONENT -->
+          <section class="section" id="theme-toggle">
+            <div class="section__header">
+              <div class="section__eyebrow">bloom-theme-toggle</div>
+              <h2 class="section__title">Theme toggle</h2>
+              <p class="section__desc">
+                A drop-in sun / moon toggle. On click it flips
+                <code>data-theme</code> on <code>&lt;html&gt;</code>, persists
+                to <code>localStorage</code>, and fires a
+                <code>bloom-theme-change</code> event. Respects
+                <code>prefers-color-scheme</code> on first load.
+              </p>
+            </div>
+
+            <div class="panel">
+              <div class="panel__label">
+                <span class="panel__dot"></span>
+                Drop-in
+              </div>
+              <div class="panel__preview">
+                <bloom-theme-toggle></bloom-theme-toggle>
+                <span style="color: var(--bloom-text-secondary);">
+                  Click me — I control the whole page.
+                </span>
+              </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-theme-toggle&gt;&lt;/bloom-theme-toggle&gt;</span>
+
+<span class="comment">// Listen for theme changes</span>
+toggle.<span class="attr">addEventListener</span><span class="punct">(</span><span class="str">'bloom-theme-change'</span><span class="punct">,</span> <span class="punct">(</span>e<span class="punct">)</span> <span class="punct">=&gt;</span> <span class="punct">{</span>
+  <span class="attr">console</span>.<span class="attr">log</span><span class="punct">(</span>e.<span class="attr">detail</span>.<span class="attr">theme</span><span class="punct">);</span> <span class="comment">// "dark" | "light"</span>
+<span class="punct">});</span></pre>
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <footer class="footer">
+        Made with <span style="color: var(--bloom-pink-500)">💖</span> by
+        <a href="https://github.com/hazeliscoding">@hazeliscoding</a> ·
+        <a href="https://github.com/hazeliscoding/kawaii-ui">source</a> ·
+        <a href="https://www.npmjs.com/package/@hazeliscoding/kawaii-ui">npm</a>
+      </footer>
+    </div>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+/* ==========================================================================
+   kawaii-ui Compat Ring Component
+   SVG circular progress ring for 0-100 scores.
+   ========================================================================== */
+
+:host {
+  display: inline-block;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+.compat-ring {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--bloom-space-2, 0.5rem);
+}
+
+.compat-ring__svg {
+  width: var(--bloom-compat-ring-size, 140px);
+  height: var(--bloom-compat-ring-size, 140px);
+  display: block;
+}
+
+.compat-ring__track {
+  fill: none;
+  stroke: var(--bloom-surface-sunken, #f3f0f7);
+  stroke-width: 10;
+}
+
+.compat-ring__fill {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.compat-ring__score {
+  font-family: var(--bloom-font-family-display, 'Quicksand', system-ui, sans-serif);
+  font-weight: var(--bloom-font-bold, 700);
+  font-size: 2rem;
+  fill: var(--bloom-text-primary, #211a33);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.compat-ring__label {
+  font-family: var(--bloom-font-family-display, 'Quicksand', system-ui, sans-serif);
+  font-weight: var(--bloom-font-semibold, 600);
+  font-size: var(--bloom-text-md, 1.125rem);
+  color: var(--bloom-text-primary, #211a33);
+  margin: 0;
+  text-align: center;
+}
+
+.compat-ring__context {
+  font-size: var(--bloom-text-sm, 0.875rem);
+  color: var(--bloom-text-tertiary, #8e82a6);
+  margin: 0;
+  text-align: center;
+}
+
+/* Empty / placeholder */
+.compat-ring__placeholder {
+  text-align: center;
+  padding: var(--bloom-space-6, 1.5rem) 0;
+  color: var(--bloom-text-tertiary, #8e82a6);
+  font-size: var(--bloom-text-sm, 0.875rem);
+  max-width: 240px;
+}
+
+.compat-ring__placeholder > slot::slotted(*),
+.compat-ring__placeholder p {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .compat-ring__fill {
+    transition: none;
+  }
+}

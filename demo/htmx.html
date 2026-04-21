@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kawaii-ui ✨ HTMX integration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true">
+      <div class="bg__blob bg__blob--pink"></div>
+      <div class="bg__blob bg__blob--blue"></div>
+      <div class="bg__blob bg__blob--lilac"></div>
+      <div class="bg__blob bg__blob--peach"></div>
+    </div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+    <div class="sparkle" aria-hidden="true">✦</div>
+    <div class="sparkle" aria-hidden="true">✧</div>
+
+    <div class="demo">
+      <header class="topbar">
+        <a href="./index.html" class="topbar__brand">
+          <span class="topbar__brand-sparkle">✨</span>
+          kawaii-ui
+        </a>
+        <nav class="topbar__nav" aria-label="Demo pages">
+          <a href="./index.html">Overview</a>
+          <a href="./htmx.html" aria-current="page">HTMX</a>
+          <a href="./vanilla.html">Vanilla</a>
+          <a href="https://github.com/hazeliscoding/kawaii-ui">GitHub</a>
+        </nav>
+        <div class="topbar__actions">
+          <button
+            class="topbar__icon-btn"
+            type="button"
+            id="themeToggle"
+            aria-label="Toggle dark mode"
+          >
+            🌙
+          </button>
+        </div>
+      </header>
+
+      <section class="hero">
+        <span class="hero__eyebrow">⚡ HTMX integration</span>
+        <h1 class="hero__title">HTMX × kawaii-ui</h1>
+        <p class="hero__tagline">
+          Custom elements auto-upgrade whenever HTMX swaps HTML into the DOM —
+          zero wiring, zero framework. This page uses plain
+          <code>hx-get</code> to fetch a fragment.
+        </p>
+        <div class="chips">
+          <span class="chip chip--pink">htmx.org@2.0.4</span>
+          <span class="chip chip--blue">No framework</span>
+          <span class="chip chip--lilac">Native upgrade</span>
+        </div>
+      </section>
+
+      <main class="content" style="max-width: 880px; margin: 0 auto;">
+        <section class="section">
+          <div class="section__header">
+            <div class="section__eyebrow">Demo</div>
+            <h2 class="section__title">Click to swap</h2>
+            <p class="section__desc">
+              The button uses <code>hx-get</code> to fetch
+              <code>htmx-fragment.html</code> and inject it into the target. The
+              fragment contains more <code>&lt;bloom-button&gt;</code> tags — the
+              browser upgrades them on insertion.
+            </p>
+          </div>
+
+          <div class="panel">
+            <div class="panel__label">
+              <span class="panel__dot"></span>
+              Trigger + target
+            </div>
+            <div class="panel__preview panel__preview--stack">
+              <div style="display: flex; gap: var(--bloom-space-3); flex-wrap: wrap; justify-content: center;">
+                <bloom-button
+                  variant="primary"
+                  hx-get="./htmx-fragment.html"
+                  hx-target="#swap-target"
+                  hx-swap="innerHTML"
+                >
+                  <span slot="icon-left">✨</span>
+                  Fetch more buttons
+                </bloom-button>
+                <bloom-button
+                  variant="ghost"
+                  hx-get="./htmx-fragment.html"
+                  hx-target="#swap-target"
+                  hx-swap="innerHTML"
+                >
+                  Again
+                </bloom-button>
+              </div>
+              <div id="swap-target" class="swap-target">
+                <em>Nothing here yet — click above to fetch a fragment.</em>
+              </div>
+            </div>
+<pre class="panel__code"><span class="tag">&lt;bloom-button</span>
+  <span class="attr">variant</span>=<span class="str">"primary"</span>
+  <span class="attr">hx-get</span>=<span class="str">"/fragment.html"</span>
+  <span class="attr">hx-target</span>=<span class="str">"#swap-target"</span>
+  <span class="attr">hx-swap</span>=<span class="str">"innerHTML"</span>
+<span class="tag">&gt;</span>
+  Fetch
+<span class="tag">&lt;/bloom-button&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="str">"swap-target"</span><span class="tag">&gt;&lt;/div&gt;</span></pre>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section__header">
+            <div class="section__eyebrow">How it works</div>
+            <h2 class="section__title">Auto-upgrade</h2>
+            <p class="section__desc">
+              Custom elements are part of the HTML parser. Any tag matching a
+              registered definition (like <code>bloom-button</code>) upgrades the
+              moment it lands in the DOM — whether by HTMX, <code>innerHTML</code>,
+              or any other insertion method. No lifecycle glue required.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        Made with <span style="color: var(--bloom-pink-500)">💖</span> ·
+        <a href="https://github.com/hazeliscoding/kawaii-ui">source</a> ·
+        <a href="https://www.npmjs.com/package/@hazeliscoding/kawaii-ui">npm</a>
+      </footer>
+    </div>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
