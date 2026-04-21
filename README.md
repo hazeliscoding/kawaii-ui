@@ -22,8 +22,10 @@ npm install @hazeliscoding/kawaii-ui
 Or load from a CDN with no build step:
 
 ```html
-<script type="module" src="https://unpkg.com/@hazeliscoding/kawaii-ui"></script>
+<script type="module" src="https://esm.sh/@hazeliscoding/kawaii-ui"></script>
 ```
+
+> **Why esm.sh and not unpkg?** The published bundle imports Lit via the bare specifier `"lit"`. Browsers can't resolve bare specifiers without an import map. `esm.sh` rewrites them transparently; unpkg does not. If you prefer unpkg, add an import map (see [Using unpkg](#using-unpkg-with-an-import-map)).
 
 ## Quickstart
 
@@ -33,11 +35,8 @@ Or load from a CDN with no build step:
 <!doctype html>
 <html>
   <head>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/@hazeliscoding/kawaii-ui/dist/styles/tokens.css"
-    />
-    <script type="module" src="https://unpkg.com/@hazeliscoding/kawaii-ui"></script>
+    <link rel="stylesheet" href="https://esm.sh/@hazeliscoding/kawaii-ui/dist/styles/tokens.css" />
+    <script type="module" src="https://esm.sh/@hazeliscoding/kawaii-ui"></script>
   </head>
   <body>
     <bloom-button variant="primary">Click me</bloom-button>
@@ -86,8 +85,8 @@ export class MyComponent {
 No extra setup — just include the script and tokens, and custom elements auto-upgrade whenever HTMX swaps HTML into the DOM.
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@hazeliscoding/kawaii-ui/dist/styles/tokens.css" />
-<script type="module" src="https://unpkg.com/@hazeliscoding/kawaii-ui"></script>
+<link rel="stylesheet" href="https://esm.sh/@hazeliscoding/kawaii-ui/dist/styles/tokens.css" />
+<script type="module" src="https://esm.sh/@hazeliscoding/kawaii-ui"></script>
 <script src="https://unpkg.com/htmx.org"></script>
 
 <bloom-button variant="primary" hx-get="/fragment" hx-target="#out"> Load more </bloom-button>
@@ -155,6 +154,24 @@ import '@hazeliscoding/kawaii-ui/styles/utilities.css'; // bloom-flex, bloom-gap
 
 // Or load them all in one shot:
 import '@hazeliscoding/kawaii-ui/styles/all.css';
+```
+
+## Using unpkg with an import map
+
+If you prefer unpkg to esm.sh, declare an import map before loading the component script so the browser knows where to fetch Lit:
+
+```html
+<script type="importmap">
+  {
+    "imports": {
+      "lit": "https://esm.run/lit",
+      "lit/": "https://esm.run/lit/",
+      "@lit/": "https://esm.run/@lit/"
+    }
+  }
+</script>
+<link rel="stylesheet" href="https://unpkg.com/@hazeliscoding/kawaii-ui/dist/styles/tokens.css" />
+<script type="module" src="https://unpkg.com/@hazeliscoding/kawaii-ui"></script>
 ```
 
 ## Local development
